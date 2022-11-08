@@ -1,4 +1,4 @@
-package com.mattyhd0.debug;
+package com.github.mattyhd0.debug;
 
 import org.bukkit.plugin.Plugin;
 

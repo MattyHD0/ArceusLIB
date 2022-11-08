@@ -1,6 +1,6 @@
-package com.mattyhd0.gui.component;
+package com.github.mattyhd0.gui.component;
 
-import com.mattyhd0.gui.component.action.IInventoryClickAction;
+import com.github.mattyhd0.gui.component.action.IInventoryClickAction;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;

@@ -1,9 +1,9 @@
-package com.mattyhd0.gui.listener;
+package com.github.mattyhd0.gui.listener;
 
-import com.mattyhd0.gui.component.ClickComponent;
-import com.mattyhd0.gui.InventoryGui;
-import com.mattyhd0.gui.component.action.IInventoryClickAction;
-import com.mattyhd0.gui.manager.GUIManager;
+import com.github.mattyhd0.gui.component.ClickComponent;
+import com.github.mattyhd0.gui.InventoryGui;
+import com.github.mattyhd0.gui.component.action.IInventoryClickAction;
+import com.github.mattyhd0.gui.manager.GUIManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

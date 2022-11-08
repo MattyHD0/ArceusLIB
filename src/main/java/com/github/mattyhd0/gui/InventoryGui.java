@@ -1,7 +1,7 @@
-package com.mattyhd0.gui;
+package com.github.mattyhd0.gui;
 
-import com.mattyhd0.gui.component.ClickComponent;
-import com.mattyhd0.gui.component.IInventoryEvent;
+import com.github.mattyhd0.gui.component.IInventoryEvent;
+import com.github.mattyhd0.gui.component.ClickComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;

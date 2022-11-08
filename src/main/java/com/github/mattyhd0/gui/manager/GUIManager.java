@@ -1,7 +1,7 @@
-package com.mattyhd0.gui.manager;
+package com.github.mattyhd0.gui.manager;
 
-import com.mattyhd0.gui.InventoryGui;
-import com.mattyhd0.gui.listener.GuiListener;
+import com.github.mattyhd0.gui.InventoryGui;
+import com.github.mattyhd0.gui.listener.GuiListener;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 

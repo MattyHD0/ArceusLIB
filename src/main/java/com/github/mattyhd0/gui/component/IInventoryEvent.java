@@ -1,4 +1,4 @@
-package com.mattyhd0.gui.component;
+package com.github.mattyhd0.gui.component;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;

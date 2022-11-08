@@ -1,4 +1,4 @@
-package com.mattyhd0.util;
+package com.github.mattyhd0.util;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

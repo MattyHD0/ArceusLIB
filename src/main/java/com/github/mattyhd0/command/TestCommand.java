@@ -1,11 +1,11 @@
-package com.mattyhd0.command;
+package com.github.mattyhd0.command;
 
-import com.mattyhd0.ArceusLIB;
-import com.mattyhd0.gui.component.ClickComponent;
-import com.mattyhd0.gui.InventoryGui;
-import com.mattyhd0.gui.component.IInventoryEvent;
-import com.mattyhd0.gui.component.action.IInventoryClickAction;
-import com.mattyhd0.util.ItemStackUtil;
+import com.github.mattyhd0.gui.component.IInventoryEvent;
+import com.github.mattyhd0.util.ItemStackUtil;
+import com.github.mattyhd0.ArceusLIB;
+import com.github.mattyhd0.gui.component.ClickComponent;
+import com.github.mattyhd0.gui.InventoryGui;
+import com.github.mattyhd0.gui.component.action.IInventoryClickAction;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
