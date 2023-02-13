@@ -2,7 +2,7 @@ package com.github.mattyhd0.gui.listener;
 
 import com.github.mattyhd0.gui.component.ClickComponent;
 import com.github.mattyhd0.gui.InventoryGui;
-import com.github.mattyhd0.gui.component.action.IInventoryClickAction;
+import com.github.mattyhd0.gui.component.InventoryEventListener;
 import com.github.mattyhd0.gui.manager.GUIManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +11,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+
+import java.util.function.Consumer;
 
 public class GuiListener implements Listener {
 
@@ -54,17 +56,21 @@ public class GuiListener implements Listener {
             return;
         }
 
-        IInventoryClickAction inventoryClickAction = clickComponent.getInventoryClickActionHashMap().get(clickType);
-
-        if(inventoryClickAction == null){
-            return;
-        }
+        Consumer<InventoryClickEvent>[] inventoryClickActions = clickComponent.getClickActions().get(clickType);
 
         if(event.getClickedInventory() == player.getInventory()){
             return;
         }
 
-        inventoryClickAction.onClick(event);
+        for(Consumer<InventoryClickEvent> action: inventoryClickActions){
+
+            if(action == null){
+                continue;
+            }
+
+            action.accept(event);
+
+        }
 
 
     }

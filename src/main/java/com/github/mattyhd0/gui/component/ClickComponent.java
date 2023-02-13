@@ -1,31 +1,46 @@
 package com.github.mattyhd0.gui.component;
 
-import com.github.mattyhd0.gui.component.action.IInventoryClickAction;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class ClickComponent {
 
-    private final HashMap<ClickType, IInventoryClickAction> inventoryClickActionHashMap;
+    private HashMap<ClickType, Consumer<InventoryClickEvent>[]> clickActions;
 
-    public ClickComponent(ClickType clickType, IInventoryClickAction action){
-        inventoryClickActionHashMap = new HashMap<>();
+    public ClickComponent(){
+        clickActions = new HashMap<>();
     }
 
-    public ClickComponent(IInventoryClickAction action){
-        inventoryClickActionHashMap = new HashMap<>();
+    protected ClickComponent(ClickType clickType, Consumer<InventoryClickEvent>... actions){
+        super();
+        clickActions.put(clickType, actions);
+    }
 
+    protected ClickComponent(Consumer<InventoryClickEvent>... actions){
+        super();
         for(ClickType clickType: ClickType.values()){
-            inventoryClickActionHashMap.put(clickType, action);
+            clickActions.put(clickType, actions);
         }
     }
 
-    public HashMap<ClickType, IInventoryClickAction> getInventoryClickActionHashMap() {
-        return inventoryClickActionHashMap;
+    public static ClickComponent of(ClickType clickType, Consumer<InventoryClickEvent> action){
+        return new ClickComponent(clickType, action);
     }
 
-    public void setInventoryClickAction(ClickType clickType, IInventoryClickAction action) {
-        inventoryClickActionHashMap.put(clickType, action);
+    public static ClickComponent of(Consumer<InventoryClickEvent> action){
+        return new ClickComponent(action);
     }
+
+    public ClickComponent with(ClickType clickType, Consumer<InventoryClickEvent>... actions){
+        clickActions.put(clickType, actions);
+        return this;
+    }
+
+    public HashMap<ClickType, Consumer<InventoryClickEvent>[]> getClickActions() {
+        return clickActions;
+    }
+
 }

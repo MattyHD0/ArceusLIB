@@ -1,6 +1,6 @@
 package com.github.mattyhd0.gui;
 
-import com.github.mattyhd0.gui.component.IInventoryEvent;
+import com.github.mattyhd0.gui.component.InventoryEventListener;
 import com.github.mattyhd0.gui.component.ClickComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
@@ -19,7 +19,7 @@ public class InventoryGui {
     private String title;
     private HashMap<Byte, ClickComponent> clickComponentHashMap;
     private HashMap<Byte, ItemStack> inventoryData;
-    private List<IInventoryEvent> inventoryEvents;
+    private List<InventoryEventListener> inventoryEvents;
     private boolean cancelGuiClick;
     private boolean cancelInventoryClick;
     public InventoryGui(InventoryType inventoryType, String title){
@@ -27,20 +27,14 @@ public class InventoryGui {
         this.title = title;
         this.clickComponentHashMap = new HashMap<>();
         this.inventoryData = new HashMap<>();
-        this.cancelGuiClick = false;
-        this.cancelInventoryClick = false;
+        this.cancelGuiClick = true;
+        this.cancelInventoryClick = true;
         this.inventoryEvents = new ArrayList<>();
     }
 
-    public InventoryGui(byte inventorySize, String title){
+    public InventoryGui(int inventorySize, String title){
         this(null, title);
-        this.inventorySize = inventorySize;
-    }
-
-    public InventoryGui(InventoryType inventoryType, String title, boolean cancelGuiClick, boolean cancelInventoryClick){
-        this(inventoryType, title);
-        this.cancelGuiClick = cancelGuiClick;
-        this.cancelInventoryClick = cancelInventoryClick;
+        this.inventorySize = (byte) inventorySize;
     }
 
     public void setSlot(int slot, ItemStack itemStack, ClickComponent clickComponent){
@@ -64,8 +58,12 @@ public class InventoryGui {
         return clickComponentHashMap;
     }
 
-    public List<IInventoryEvent> getInventoryEvents() {
+    public List<InventoryEventListener> getInventoryEvents() {
         return inventoryEvents;
+    }
+
+    public void addEventListener(InventoryEventListener inventoryEvent){
+        inventoryEvents.add(inventoryEvent);
     }
 
     public boolean isCancelGuiClick() {

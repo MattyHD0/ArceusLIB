@@ -4,7 +4,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
-public interface IInventoryEvent {
+public interface InventoryEventListener {
 
     void onOpen(InventoryOpenEvent event);
 
