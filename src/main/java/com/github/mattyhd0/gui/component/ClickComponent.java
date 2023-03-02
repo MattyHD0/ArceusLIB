@@ -15,12 +15,12 @@ public class ClickComponent {
     }
 
     protected ClickComponent(ClickType clickType, Consumer<InventoryClickEvent>... actions){
-        super();
+        this();
         clickActions.put(clickType, actions);
     }
 
     protected ClickComponent(Consumer<InventoryClickEvent>... actions){
-        super();
+        this();
         for(ClickType clickType: ClickType.values()){
             clickActions.put(clickType, actions);
         }
