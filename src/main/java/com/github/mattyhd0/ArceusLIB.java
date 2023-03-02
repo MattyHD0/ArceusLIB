@@ -7,12 +7,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ArceusLIB extends JavaPlugin {
 
     private static ArceusLIB instance;
-    private GUIManager guiManager;
+    private ArceusLibrary arceusLibrary;
 
     @Override
     public void onEnable(){
-        this.guiManager = new GUIManager(this);
-        getCommand("test").setExecutor(new TestCommand());
+        getCommand("acltest").setExecutor(new TestCommand());
+        arceusLibrary = new ArceusLibrary(this);
         instance = this;
         }
 
@@ -25,7 +25,7 @@ public class ArceusLIB extends JavaPlugin {
         return instance;
     }
 
-    public GUIManager getGuiManager() {
-        return guiManager;
+    public ArceusLibrary getArceusLibrary() {
+        return arceusLibrary;
     }
 }

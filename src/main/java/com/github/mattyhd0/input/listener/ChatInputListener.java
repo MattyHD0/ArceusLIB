@@ -4,6 +4,7 @@ import com.github.mattyhd0.input.PlayerChatInputDialog;
 import com.github.mattyhd0.input.PlayerInputManager;
 import com.github.mattyhd0.input.event.PlayerChatInputEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +30,8 @@ public class ChatInputListener implements Listener {
             return;
         }
 
+        event.setCancelled(true);
+
         PlayerChatInputDialog playerChatInputDialog = playerInputManager.get(playerUuid);
 
         boolean accepted = false;
@@ -50,11 +53,11 @@ public class ChatInputListener implements Listener {
         }
 
         if(!accepted){
-            event.setCancelled(true);
             return;
         }
 
         playerInputManager.remove(player.getUniqueId());
+        player.sendTitle("", "");
 
     }
 

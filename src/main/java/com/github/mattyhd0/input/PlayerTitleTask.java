@@ -31,10 +31,18 @@ public class PlayerTitleTask extends BukkitRunnable {
             Player player = (Player) offlinePlayer;
             PlayerChatInputDialog playerChatInputDialog = entry.getValue();
 
-            player.sendTitle(
-                    ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getTitle()),
-                    ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getSubtitle())
-                    );
+            try {
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getTitle()),
+                        ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getSubtitle()),
+                        0, 20, 0
+                );
+            } catch (NoSuchMethodError e){
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getTitle()),
+                        ChatColor.translateAlternateColorCodes('&', playerChatInputDialog.getSubtitle())
+                );
+            }
 
         }
 
