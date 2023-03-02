@@ -1,6 +1,6 @@
 package com.github.mattyhd0.input;
 
-import com.github.mattyhd0.input.listener.ChatListener;
+import com.github.mattyhd0.input.listener.ChatInputListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -14,7 +14,7 @@ public class PlayerInputManager {
 
     public PlayerInputManager(Plugin plugin){
         playerInputMap = new HashMap<>();
-        Bukkit.getPluginManager().registerEvents(new ChatListener(this), plugin);
+        Bukkit.getPluginManager().registerEvents(new ChatInputListener(this), plugin);
         new PlayerTitleTask(this)
                 .runTaskTimer(plugin, 0L, 10L);
     }
