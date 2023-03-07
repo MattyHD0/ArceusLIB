@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.UUID;
@@ -22,22 +23,7 @@ public class ChatInputListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event){
-
-        Player player = event.getPlayer();
-
-        if(playerInputManager.has(player.getUniqueId())){
-
-            //event.setCancelled(true);
-            //Bukkit.getServer().dispatchCommand(player, "/"+event.getMessage());
-            event.setMessage("/"+event.getMessage());
-
-        }
-
-    }
-
-    @EventHandler
-    public void onPlayerCommand(PlayerCommandPreprocessEvent event){
+    public void onPlayerCommand(PlayerChatEvent event){
 
         Player player = event.getPlayer();
         UUID playerUuid = player.getUniqueId();
