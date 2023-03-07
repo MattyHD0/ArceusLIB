@@ -22,6 +22,21 @@ public class ChatInputListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event){
+
+        Player player = event.getPlayer();
+
+        if(playerInputManager.has(player.getUniqueId())){
+
+            event.setCancelled(true);
+            Bukkit.getServer()
+                    .dispatchCommand(player, "/"+event.getMessage());
+
+        }
+
+    }
+
+    @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event){
 
         Player player = event.getPlayer();
