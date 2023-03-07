@@ -28,9 +28,9 @@ public class ChatInputListener implements Listener {
 
         if(playerInputManager.has(player.getUniqueId())){
 
-            event.setCancelled(true);
-            Bukkit.getServer()
-                    .dispatchCommand(player, "/"+event.getMessage());
+            //event.setCancelled(true);
+            //Bukkit.getServer().dispatchCommand(player, "/"+event.getMessage());
+            event.setMessage("/"+event.getMessage());
 
         }
 
@@ -41,6 +41,7 @@ public class ChatInputListener implements Listener {
 
         Player player = event.getPlayer();
         UUID playerUuid = player.getUniqueId();
+        String input = event.getMessage().replace("/", "");
 
         if(!playerInputManager.has(playerUuid)){
             return;
@@ -55,9 +56,9 @@ public class ChatInputListener implements Listener {
         if(playerChatInputDialog.getListener() == null){
 
             PlayerChatInputEvent inputEvent = new PlayerChatInputEvent(
-                    event.getPlayer(),
+                    player,
                     playerInputManager.get(playerUuid).getId(),
-                    event.getMessage()
+                    input
             );
 
             Bukkit.getPluginManager().callEvent(inputEvent);
@@ -65,7 +66,7 @@ public class ChatInputListener implements Listener {
             accepted = inputEvent.isAccepted();
 
         } else {
-            accepted = playerChatInputDialog.getListener().onEvent(player, event.getMessage());
+            accepted = playerChatInputDialog.getListener().onEvent(player, input);
         }
 
         if(!accepted){
