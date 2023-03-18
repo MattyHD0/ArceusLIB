@@ -6,7 +6,7 @@
 
     <groupId>com.mattyhd0</groupId>
     <artifactId>arceuslib</artifactId>
-    <version>1.1</version>
+    <version>2.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -31,4 +31,17 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>C:\Users\Matias\Desktop\test-1.8.9\plugins</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

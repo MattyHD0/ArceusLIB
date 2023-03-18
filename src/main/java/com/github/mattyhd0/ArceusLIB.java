@@ -1,7 +1,6 @@
 package com.github.mattyhd0;
 
 import com.github.mattyhd0.command.TestCommand;
-import com.github.mattyhd0.gui.manager.GUIManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArceusLIB extends JavaPlugin {
