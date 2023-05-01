@@ -77,6 +77,11 @@ public class ClickComponent implements ArceusComponent {
         return this;
     }
 
+    public ClickComponent slot(int slot){
+        this.slot = slot;
+        return this;
+    }
+
     public int getSlot() {
         return slot;
     }
