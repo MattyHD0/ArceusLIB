@@ -1,12 +1,11 @@
 package com.github.mattyhd0.gui.actions;
 
+import com.github.mattyhd0.gui.context.MenuClickContext;
+import com.github.mattyhd0.gui.functional.ClickAction;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.function.Consumer;
-
-public class SendTitleClickAction implements Consumer<InventoryClickEvent> {
+public class SendTitleClickAction implements ClickAction {
 
     private String title;
     private String subtitle;
@@ -17,12 +16,11 @@ public class SendTitleClickAction implements Consumer<InventoryClickEvent> {
     }
 
     @Override
-    public void accept(InventoryClickEvent inventoryClickEvent) {
-        Player player = (Player) inventoryClickEvent.getWhoClicked();
+    public void onClick(MenuClickContext context) {
+        Player player = (Player) context.getClicker();
         player.sendTitle(
                 ChatColor.translateAlternateColorCodes('&', title),
                 ChatColor.translateAlternateColorCodes('&', subtitle)
-                );
+        );
     }
-
 }

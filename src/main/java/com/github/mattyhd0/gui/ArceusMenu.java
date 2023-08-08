@@ -1,98 +1,103 @@
 package com.github.mattyhd0.gui;
 
-import com.github.mattyhd0.gui.component.ArceusComponent;
-import com.github.mattyhd0.gui.component.ClickComponent;
-import com.github.mattyhd0.gui.component.InventoryEventComponent;
-import org.bukkit.Bukkit;
+import com.github.mattyhd0.builder.gui.AbstractMenuBuilderLayout;
+import com.github.mattyhd0.gui.component.api.Component;
+import com.github.mattyhd0.gui.holder.ArceusInventoryHolder;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.function.Consumer;
 
-public class ArceusMenu implements InventoryHolder {
+public class ArceusMenu extends ArceusInventoryHolder {
 
-    private Inventory inventory;
-    private List<ArceusComponent> components;
-
-    public ArceusMenu(){
-        this.inventory = Bukkit.createInventory(this, 3*9, "Arceus Inventory");
-        this.components = new ArrayList<>();
+    protected ArceusMenu(Builder builder) {
+        super(
+                builder.title,
+                builder.rows,
+                builder.inventoryType,
+                builder.components,
+                builder.listeners
+        );
     }
 
-    public ArceusMenu(String title, InventoryType inventoryType){
-        this();
-        this.inventory = Bukkit.createInventory(this, inventoryType, title);
-    }
-
-    public ArceusMenu(String title, int rows){
-        this();
-        this.inventory = Bukkit.createInventory(this, rows*9, title);
-    }
-
-    public void addComponent(ArceusComponent component){
-        components.add(component);
-    }
-
-    public void addComponents(ArceusComponent... components){
-        this.components.addAll(Arrays.asList(components));
-    }
-
-    public List<ArceusComponent> getComponents() {
-        return components;
-    }
-
-    public List<ClickComponent> getClickComponents(){
-        return components.stream()
-                .filter(ClickComponent.class::isInstance)
-                .map(component -> (ClickComponent) component)
-                .collect(Collectors.toList());
-    }
-
-    public List<ClickComponent> getClickComponents(int slot){
-        return components.stream()
-                .filter(component -> component instanceof ClickComponent && ((ClickComponent) component).getSlot() == slot)
-                .map(component -> (ClickComponent) component)
-                .collect(Collectors.toList());
-    }
-
-    public List<InventoryEventComponent> getEventComponents(){
-        return components.stream()
-                .filter(InventoryEventComponent.class::isInstance)
-                .map(component -> (InventoryEventComponent) component)
-                .collect(Collectors.toList());
-    }
-
-    public void fillInventory(ItemStack itemStack){
-        for (int i = 0; i < getInventory().getSize(); i++){
-            inventory.setItem(i, itemStack);
-        }
-    }
-
-    public void fillSlots(ItemStack itemStack, int start, int end){
-        for (int i = start; i < getInventory().getSize() && i <= end; i++){
-            inventory.setItem(i, itemStack);
-        }
-    }
-
-    public void setSlots(ItemStack itemStack, int[] slots){
-        for (int slot: slots){
-            if (inventory.getSize() < slot){
-                continue;
-            }
-
-            getInventory().setItem(slot, itemStack);
-        }
+    public ArceusMenu(
+            String title,
+            int rows,
+            InventoryType inventoryType,
+            HashMap<Integer, Component> components,
+            HashMap<Class<? extends InventoryEvent>, List<Consumer<InventoryEvent>>> listeners
+    ) {
+        super(title, rows, inventoryType, components, listeners);
     }
 
     @Override
-    public Inventory getInventory() {
-        return inventory;
+    public void draw() {
+        for (Map.Entry<Integer, Component> componentEntry : components.entrySet()) {
+
+            int slot = componentEntry.getKey();
+            Component component = componentEntry.getValue();
+
+            component.drawItem(this.inventory, slot);
+        }
+    }
+
+    public static class Builder extends AbstractMenuBuilderLayout<ArceusMenu, Builder> {
+
+        private String title;
+        private int rows;
+        private InventoryType inventoryType;
+        private final HashMap<Integer, Component> components;
+        private final HashMap<
+                Class<? extends InventoryEvent>,
+                List<Consumer<InventoryEvent>>
+                > listeners;
+
+        public Builder() {
+            components = new HashMap<>();
+            listeners = new HashMap<>();
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return self();
+        }
+
+        public Builder rows(int rows) {
+            this.rows = rows;
+            return self();
+        }
+
+        public Builder inventoryType(InventoryType inventoryType) {
+            this.inventoryType = inventoryType;
+            return self();
+        }
+
+        public Builder component(int slot, Component component) {
+            this.components.put(slot, component);
+            return self();
+        }
+
+        public Builder listener(Class<? extends InventoryEvent> clazz, Consumer<InventoryEvent> consumer) {
+            if (!this.listeners.containsKey(clazz)) {
+                this.listeners.put(clazz, new ArrayList<>());
+            }
+            this.listeners.get(clazz).add(consumer);
+            return self();
+        }
+
+        public ArceusMenu build() {
+            return new ArceusMenu(this);
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
     }
 
 }

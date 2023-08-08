@@ -1,12 +1,10 @@
 package com.github.mattyhd0.gui.actions;
 
+import com.github.mattyhd0.gui.context.MenuClickContext;
+import com.github.mattyhd0.gui.functional.ClickAction;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.function.Consumer;
-
-public class SendMessageClickAction implements Consumer<InventoryClickEvent> {
+public class SendMessageClickAction implements ClickAction {
 
     private String message;
 
@@ -15,9 +13,7 @@ public class SendMessageClickAction implements Consumer<InventoryClickEvent> {
     }
 
     @Override
-    public void accept(InventoryClickEvent inventoryClickEvent) {
-        Player player = (Player) inventoryClickEvent.getWhoClicked();
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+    public void onClick(MenuClickContext context) {
+        context.getClicker().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
-
 }

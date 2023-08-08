@@ -1,12 +1,10 @@
 package com.github.mattyhd0.gui.actions;
 
+import com.github.mattyhd0.gui.context.MenuClickContext;
+import com.github.mattyhd0.gui.functional.ClickAction;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.function.Consumer;
-
-public class PlaySoundClickAction implements Consumer<InventoryClickEvent> {
+public class PlaySoundClickAction implements ClickAction {
 
     private Sound sound;
     private float pitch;
@@ -19,14 +17,12 @@ public class PlaySoundClickAction implements Consumer<InventoryClickEvent> {
     }
 
     @Override
-    public void accept(InventoryClickEvent inventoryClickEvent) {
-        Player player = (Player) inventoryClickEvent.getWhoClicked();
-        player.playSound(
-                player.getLocation(),
+    public void onClick(MenuClickContext context) {
+        context.getClicker().playSound(
+                context.getClicker().getLocation(),
                 sound,
                 pitch,
                 yaw
         );
     }
-
 }
