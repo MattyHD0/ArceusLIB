@@ -7,8 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.AbstractCollection;
-
 public class DisplayItem implements Component {
 
     private final ItemStack itemStack;
@@ -45,7 +43,7 @@ public class DisplayItem implements Component {
 
         @Override
         protected Builder self() {
-            return null;
+            return this;
         }
 
         @Override
