@@ -1,28 +1,24 @@
 package com.github.mattyhd0.input;
 
-import com.github.mattyhd0.input.event.PlayerInputListener;
+import com.github.mattyhd0.input.action.InputProcessor;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
-public class PlayerChatInputDialog {
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-    private String id;
-    private PlayerInputListener listener;
+public class PlayerChatInputDialog extends AbstractPlayerInputDialog {
+
     private String title;
     private String subtitle;
+    private ScheduledExecutorService executorService;
 
-    public PlayerChatInputDialog(String id, String title, String subtitle){
-        this.id = id;
+    public PlayerChatInputDialog(InputProcessor processor, String title, String subtitle) {
+        super(processor);
         this.title = title;
         this.subtitle = subtitle;
-    }
-
-    public PlayerChatInputDialog(PlayerInputListener listener, String title, String subtitle){
-        this.listener = listener;
-        this.title = title;
-        this.subtitle = subtitle;
-    }
-
-    public String getId() {
-        return id;
+        this.executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
     public String getTitle() {
@@ -33,7 +29,36 @@ public class PlayerChatInputDialog {
         return subtitle;
     }
 
-    public PlayerInputListener getListener() {
-        return listener;
+    @Override
+    public void send(Player player) {
+
+        executorService.schedule(() -> {
+
+            if(!player.isOnline() || player.isDead()) return;
+
+            try {
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', getTitle()),
+                        ChatColor.translateAlternateColorCodes('&', getSubtitle()),
+                        0, 20, 0
+                );
+            } catch (NoSuchMethodError e){
+                player.sendTitle(
+                        ChatColor.translateAlternateColorCodes('&', getTitle()),
+                        ChatColor.translateAlternateColorCodes('&', getSubtitle())
+                );
+            }
+
+        }, 1000, TimeUnit.MILLISECONDS);
     }
+
+    @Override
+    public void exit(Player player) {
+        try {
+            player.resetTitle();
+        } catch (NoSuchMethodError ignored){}
+
+        executorService.shutdown();
+    }
+
 }

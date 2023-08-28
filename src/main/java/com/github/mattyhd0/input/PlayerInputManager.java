@@ -1,6 +1,6 @@
 package com.github.mattyhd0.input;
 
-import com.github.mattyhd0.input.listener.ChatInputListener;
+import com.github.mattyhd0.input.listener.InputListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -10,16 +10,14 @@ import java.util.UUID;
 
 public class PlayerInputManager {
 
-    private HashMap<UUID, PlayerChatInputDialog> playerInputMap;
+    private HashMap<UUID, AbstractPlayerInputDialog> playerInputMap;
 
     public PlayerInputManager(Plugin plugin){
         playerInputMap = new HashMap<>();
-        Bukkit.getPluginManager().registerEvents(new ChatInputListener(this), plugin);
-        new PlayerTitleTask(this)
-                .runTaskTimer(plugin, 0L, 10L);
+        Bukkit.getPluginManager().registerEvents(new InputListener(this), plugin);
     }
 
-    public HashMap<UUID, PlayerChatInputDialog> getPlayerInputMap() {
+    public HashMap<UUID, AbstractPlayerInputDialog> getPlayerInputMap() {
         return new HashMap<>(playerInputMap);
     }
 
@@ -27,7 +25,7 @@ public class PlayerInputManager {
         return playerInputMap.containsKey(player);
     }
 
-    public PlayerChatInputDialog get(UUID player){
+    public AbstractPlayerInputDialog get(UUID player){
         return playerInputMap.get(player);
     }
 
@@ -35,8 +33,9 @@ public class PlayerInputManager {
         playerInputMap.remove(player);
     }
 
-    public void sendInputDialog(Player player, PlayerChatInputDialog playerChatInputDialog){
-        playerInputMap.put(player.getUniqueId(), playerChatInputDialog);
+    public void sendInputDialog(Player player, AbstractPlayerInputDialog inputDialog){
+        inputDialog.send(player);
+        playerInputMap.put(player.getUniqueId(), inputDialog);
     }
 
 }
