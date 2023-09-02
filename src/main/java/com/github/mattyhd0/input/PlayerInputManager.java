@@ -11,9 +11,11 @@ import java.util.UUID;
 public class PlayerInputManager {
 
     private HashMap<UUID, AbstractPlayerInputDialog> playerInputMap;
+    private Plugin plugin;
 
     public PlayerInputManager(Plugin plugin){
         playerInputMap = new HashMap<>();
+        this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(new InputListener(this), plugin);
     }
 
@@ -38,4 +40,7 @@ public class PlayerInputManager {
         playerInputMap.put(player.getUniqueId(), inputDialog);
     }
 
+    public Plugin getPlugin() {
+        return plugin;
+    }
 }
