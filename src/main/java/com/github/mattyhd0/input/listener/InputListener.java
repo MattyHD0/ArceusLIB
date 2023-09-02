@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.UUID;
@@ -23,7 +24,7 @@ public class InputListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event){
+    public void onPlayerChat(PlayerChatEvent event){
 
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
@@ -71,6 +72,7 @@ public class InputListener implements Listener {
             return;
         }
 
+        inputDialog.exit(player);
         playerInputManager.remove(uuid);
 
     }
@@ -114,6 +116,7 @@ public class InputListener implements Listener {
             return;
         }
 
+        inputDialog.exit(player);
         playerInputManager.remove(uuid);
 
     }
