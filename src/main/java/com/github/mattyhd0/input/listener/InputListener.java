@@ -5,15 +5,12 @@ import com.github.mattyhd0.input.PlayerChatInputDialog;
 import com.github.mattyhd0.input.PlayerInputManager;
 import com.github.mattyhd0.input.PlayerSignInputDialog;
 import com.github.mattyhd0.input.context.InputContext;
-import com.github.mattyhd0.input.event.PlayerChatInputEvent;
 import jdk.internal.joptsimple.internal.Strings;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.UUID;
