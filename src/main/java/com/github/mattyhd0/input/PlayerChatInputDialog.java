@@ -32,7 +32,7 @@ public class PlayerChatInputDialog extends AbstractPlayerInputDialog {
     @Override
     public void send(Player player) {
 
-        executorService.schedule(() -> {
+        executorService.scheduleAtFixedRate(() -> {
 
             if(!player.isOnline() || player.isDead()) return;
 
@@ -49,7 +49,7 @@ public class PlayerChatInputDialog extends AbstractPlayerInputDialog {
                 );
             }
 
-        }, 1000, TimeUnit.MILLISECONDS);
+        },0,100, TimeUnit.MILLISECONDS);
     }
 
     @Override
