@@ -146,13 +146,13 @@ public class TestCommand implements CommandExecutor {
 
                     player,
                     new PlayerChatInputDialog(
-                            (player1, input) -> {
+                            (context) -> {
 
-                                if (!input.equalsIgnoreCase("yes")){
+                                if (!context.getInput().equalsIgnoreCase("yes")){
                                     return false;
                                 }
 
-                                player1.sendMessage("Thanks you!");
+                                context.getPlayer().sendMessage("Thanks you!");
                                 return true;
 
                             },
