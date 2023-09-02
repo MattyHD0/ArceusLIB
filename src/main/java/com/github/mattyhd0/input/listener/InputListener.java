@@ -5,7 +5,6 @@ import com.github.mattyhd0.input.PlayerChatInputDialog;
 import com.github.mattyhd0.input.PlayerInputManager;
 import com.github.mattyhd0.input.PlayerSignInputDialog;
 import com.github.mattyhd0.input.context.InputContext;
-import jdk.internal.joptsimple.internal.Strings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -102,9 +101,9 @@ public class InputListener implements Listener {
         }
 
 
-        String input = Strings.join(inputLines, " ");
+        StringBuilder input = new StringBuilder(inputLines[0]);
 
-        InputContext inputContext = new InputContext(player, input);
+        InputContext inputContext = new InputContext(player, input.toString());
         boolean accepted = inputDialog.getProcessor()
                 .process(inputContext);
 
