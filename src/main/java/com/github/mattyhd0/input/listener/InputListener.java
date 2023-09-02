@@ -5,6 +5,7 @@ import com.github.mattyhd0.input.PlayerChatInputDialog;
 import com.github.mattyhd0.input.PlayerInputManager;
 import com.github.mattyhd0.input.PlayerSignInputDialog;
 import com.github.mattyhd0.input.context.InputContext;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,8 +40,17 @@ public class InputListener implements Listener {
             return;
         }
 
+        String command = "/"+event.getMessage();
+        PlayerCommandPreprocessEvent commandEvent = new PlayerCommandPreprocessEvent(player, command);
         event.setCancelled(true);
-        player.performCommand("/"+event.getMessage());
+
+        Bukkit.getServer().getPluginManager().callEvent(commandEvent);
+
+        if(commandEvent.isCancelled()){
+            return;
+        }
+
+        player.performCommand(command);
 
     }
 
