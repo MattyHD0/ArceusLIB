@@ -22,6 +22,7 @@ public class InputListener implements Listener {
         this.playerInputManager = playerInputManager;
     }
 
+    @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event){
 
         Player player = event.getPlayer();
