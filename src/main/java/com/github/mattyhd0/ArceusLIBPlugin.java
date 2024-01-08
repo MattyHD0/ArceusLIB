@@ -3,9 +3,9 @@ package com.github.mattyhd0;
 import com.github.mattyhd0.command.TestCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ArceusLIB extends JavaPlugin {
+public class ArceusLIBPlugin extends JavaPlugin {
 
-    private static ArceusLIB instance;
+    private static ArceusLIBPlugin instance;
     private ArceusLibrary arceusLibrary;
 
     @Override
@@ -20,7 +20,7 @@ public class ArceusLIB extends JavaPlugin {
 
     }
 
-    public static ArceusLIB getInstance() {
+    public static ArceusLIBPlugin getInstance() {
         return instance;
     }
 

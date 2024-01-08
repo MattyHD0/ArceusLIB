@@ -5,7 +5,7 @@ import com.github.mattyhd0.gui.component.arceus.Button;
 import com.github.mattyhd0.gui.component.arceus.DisplayItem;
 import com.github.mattyhd0.gui.actions.OpenPageAction;
 import com.github.mattyhd0.input.PlayerChatInputDialog;
-import com.github.mattyhd0.ArceusLIB;
+import com.github.mattyhd0.ArceusLIBPlugin;
 import com.github.mattyhd0.gui.ArceusMenu;
 import com.github.mattyhd0.util.ItemStackUtil;
 import org.bukkit.ChatColor;
@@ -142,7 +142,7 @@ public class TestCommand implements CommandExecutor {
 
         } else if (strings[0].equalsIgnoreCase("input")){
 
-            ArceusLIB.getInstance().getArceusLibrary().getPlayerInputManager().sendInputDialog(
+            ArceusLIBPlugin.getInstance().getArceusLibrary().getPlayerInputManager().sendInputDialog(
 
                     player,
                     new PlayerChatInputDialog(
