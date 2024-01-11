@@ -136,6 +136,9 @@ public class ArceusPaginatedMenu extends ArceusMenu {
     @Override
     public void draw() {
         super.draw();
+        for(int slot: pageSlots){
+            this.inventory.setItem(slot, null);
+        }
         for (
                 int i = 0;
                 i < pageSlots.length &&
